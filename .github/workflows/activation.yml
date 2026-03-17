@@ -1,14 +1,17 @@
 name: Get Activation File
-on: workflow_dispatch # Permet de lancer le bouton manuellement
+on: workflow_dispatch
 jobs:
   activation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4 						# Updated
+
       - name: Request activation file
-        uses: game-ci/unity-request-activation-file@v2
+        uses: game-ci/unity-request-activation-file@v4 	# Using v4
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4              	# Updated
         with:
           name: registration-file
           path: ./*.alf
