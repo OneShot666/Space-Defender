@@ -3,6 +3,9 @@ on: workflow_dispatch
 jobs:
   activation:
     runs-on: ubuntu-latest
+    env:
+      # Cette ligne est indispensable en 2026 pour faire marcher la v2 du cahier des charges
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
