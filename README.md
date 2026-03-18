@@ -1,8 +1,6 @@
 # Space Defender
 
-
-
-!\[CI Status](https://github.com/OneShot666/Space-Defender/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/OneShot666/Space-Defender/actions/workflows/ci.yml/badge.svg)
 
 &#x20;
 
