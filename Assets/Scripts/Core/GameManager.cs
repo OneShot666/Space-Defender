@@ -1,19 +1,41 @@
+using UnityEngine;
+using Core;
+
 /* * ==============================================================================
  * SPACE DEFENDER - TO DO LIST
  * ============================================================================== */
 /* --- PART 1 : TESTS PLAN --- */
-// . Fill basics tests (Player, Enemy, ScoreCalculator) [cite: 21, 23, 25]
-// ! Make and justify 3 bonus tests [cite: 26]
-/* --- PART 2 : DEV TDD (Cycle Red-Green-Refactor) [cite: 7, 27] --- */
-// . Configuration NUnit (EditMode) & .asmdef [cite: 31]
-// . Implement class Player (T01 à T06) [cite: 35, 37]
-// ! Implement class Enemy (T07, T08) [cite: 17, 37]
-// ! Implement class ScoreCalculator (T09 à T12) [cite: 18, 37]
-// L Refactorization : Apply DRY & AAA principals [cite: 40, 41]
-/* --- PART 3 : PIPELINE CI/CD (GitHub Actions) [cite: 44] --- */
-// ! Create .github/workflows/ci.yml file [cite: 48, 50]
-// ! Configure Unity Secrets (LICENSE, EMAIL, PASSWORD) [cite: 53]
-// ! Establish branch protection rules for branch main [cite: 59, 60]
-// ? Automate extension CD for Build WebGL [cite: 55, 57]
-// ? Add status badge in README.md [cite: 64, 66]
-public class GameManager {}
+// Fill basics tests (Player, Enemy, ScoreCalculator)
+// Make and justify 3 bonus tests
+/* --- PART 2 : DEV TDD (Cycle Red-Green-Refactor) --- */
+// Configuration NUnit (EditMode) & .asmdef
+// Implement class Player (T01 à T06)
+// Implement class Enemy (T07, T08)
+// Implement class ScoreCalculator (T09 à T12)
+// . Refactorization : Apply DRY & AAA principals
+/* --- PART 3 : PIPELINE CI/CD (GitHub Actions) --- */
+// Create .github/workflows/ci.yml file
+// Configure Unity Secrets (LICENSE, EMAIL, PASSWORD)
+// . Establish branch protection rules for branch main
+// ! Automate extension CD for Build WebGL
+// ! Add status badge in README.md
+public class GameManager {
+    private bool _isGameOver;
+    private int _score;
+
+    private ScoreCalculator _calculator;
+
+    public static GameManager Instance { get; private set; }
+
+    public void AddScore(int points) {
+        if (!_isGameOver) {
+            _score += _calculator.Calculate(points);
+            Debug.Log("Score actuel : " + _score);
+        }
+    }
+
+    public void TriggerGameOver() {
+        _isGameOver = true;
+        Debug.Log("Game Over !");
+    }
+}
