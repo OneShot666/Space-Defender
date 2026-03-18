@@ -2,7 +2,7 @@
 
 
 
-!\[CI Status](https://github.com/VOTRE\_USER/space-defender/actions/workflows/ci.yml/badge.svg)
+!\[CI Status](https://github.com/OneShot666/Space-Defender/.github/workflows/ci.yml/badge.svg)
 
 &#x20;
 
