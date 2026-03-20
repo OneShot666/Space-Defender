@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using Gameplay;
 
-public class Bullet {
-    public float speed = 10f;
-    public int damage = 1;
-    public float lifeTime = 3f;
+namespace Core {
+    public class Bullet {
+        private readonly int _damage;
 
-    public void Move(Vector3 dir) {}
+        public Bullet(int damage=1) {
+            _damage = damage;
+        }
+
+        public void TouchEnemy(EnemyController enemy) {
+            enemy.OnHit(_damage);
+        }
+    }
 }

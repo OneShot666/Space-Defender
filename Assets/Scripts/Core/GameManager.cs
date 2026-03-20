@@ -1,5 +1,4 @@
 using UnityEngine;
-using Core;
 
 /* * ==============================================================================
  * SPACE DEFENDER - TO DO LIST
@@ -12,30 +11,20 @@ using Core;
 // Implement class Player (T01 à T06)
 // Implement class Enemy (T07, T08)
 // Implement class ScoreCalculator (T09 à T12)
-// . Refactorization : Apply DRY & AAA principals
+// Refactorization : Apply DRY & AAA principals
 /* --- PART 3 : PIPELINE CI/CD (GitHub Actions) --- */
 // Create .github/workflows/ci.yml file
 // Configure Unity Secrets (LICENSE, EMAIL, PASSWORD)
-// . Establish branch protection rules for branch main
-// ! Automate extension CD for Build WebGL
-// ! Add status badge in README.md
-public class GameManager {
-    private bool _isGameOver;
-    private int _score;
+// Establish branch protection rules for branch main
+// Automate extension CD for Build WebGL
+// Add status badge in README.md
+namespace Core {
+    public class GameManager {
+        public bool IsGameOver;
 
-    private ScoreCalculator _calculator;
-
-    public static GameManager Instance { get; private set; }
-
-    public void AddScore(int points) {
-        if (!_isGameOver) {
-            _score += _calculator.Calculate(points);
-            Debug.Log("Score actuel : " + _score);
+        public void TriggerGameOver() {
+            IsGameOver = true;
+            Time.timeScale = 0;                                                 // Pause game
         }
-    }
-
-    public void TriggerGameOver() {
-        _isGameOver = true;
-        Debug.Log("Game Over !");
     }
 }
