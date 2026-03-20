@@ -6,8 +6,8 @@ namespace Core {
         public float Multiplier { get; private set; } = 1.0f;
         public readonly float MaxMult = 5.0f;
 
-        public int Calculate(int kills, int time=0) {
-            return (int)(BaseScore * kills * Multiplier);
+        public int Calculate(int score, int time=0) {
+            return (int)(BaseScore * score * Multiplier);
         }
 
         public void ApplyCombo(int comboCount) {
