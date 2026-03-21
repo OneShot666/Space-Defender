@@ -35,6 +35,7 @@ namespace Gameplay {
 
         private void GameOver() {                                               // L Show death screen
             _logic.TriggerGameOver();
+            ScoreController.Instance.Save();
             deathScreenPanel.SetActive(true);
         }
 

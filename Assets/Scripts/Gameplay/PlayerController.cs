@@ -2,7 +2,15 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Core;
 
+// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 namespace Gameplay {
+    [System.Serializable]
+    public struct PlayerForm {
+        public Sprite turretSprite;
+        public GameObject bulletPrefab;
+        public float flex;
+    }
+    
     [DefaultExecutionOrder(-100)]                                               // Initiate first
     public class PlayerController : MonoBehaviour {
         [Header("Shoot settings")]
@@ -10,9 +18,17 @@ namespace Gameplay {
         [SerializeField] private Transform firePoint;
         [SerializeField, Range(0, 180)] private float flexibility = 15;
 
+        [Header("Forms Configuration")]
+        [SerializeField] private PlayerForm normalForm;
+        [SerializeField] private PlayerForm superForm;
+
+        [Header("References")]
+        [SerializeField] private SpriteRenderer turretRenderer;
+
         private Player _logic;
         private Camera _camera;
-        
+        private bool _isSuperForm;
+
         public Player Player => _logic;
 
         public static PlayerController Instance { get; private set; }
@@ -30,8 +46,27 @@ namespace Gameplay {
         }
 
         void Update() {
+            CheckFormTransformation();
             HandleRotation();
             HandleShoot();
+        }
+
+        private void CheckFormTransformation() {
+            float currentMult = ScoreController.Instance.GetMultiplier();
+
+            if (!_isSuperForm && currentMult >= ScoreController.Instance.GetMaxMult() - 1) {
+                ApplyForm(superForm);
+                _isSuperForm = true;
+            } else if (_isSuperForm && currentMult <= ScoreController.Instance.GetMinMult() + 1) {
+                ApplyForm(normalForm);
+                _isSuperForm = false;
+            }
+        }
+        
+        private void ApplyForm(PlayerForm form) {
+            turretRenderer.sprite = form.turretSprite;
+            bulletPrefab = form.bulletPrefab;
+            flexibility = form.flex;
         }
 
         private void HandleRotation() {

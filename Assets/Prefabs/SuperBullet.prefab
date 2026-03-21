@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: lifeTime
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5625429236745168304, guid: 799e483bb8edf5b489114e7ee2331208, type: 3}
+      propertyPath: hasPenetration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658342759946036222, guid: 799e483bb8edf5b489114e7ee2331208, type: 3}
       propertyPath: m_Name
       value: SuperBullet

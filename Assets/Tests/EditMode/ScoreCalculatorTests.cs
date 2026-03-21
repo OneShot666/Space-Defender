@@ -25,19 +25,19 @@ namespace Tests.EditMode {
 
         [Test]
         public void ApplyCombo_Normal_IncreasesMult() {
-            _calculator.ApplyCombo(3);
+            _calculator.IncreaseCombo(3);
             Assert.AreEqual(4, _calculator.Multiplier);
         }
 
         [Test]
         public void ApplyCombo_Limite_UnchangedMult() {
-            _calculator.ApplyCombo(0);
+            _calculator.IncreaseCombo(0);
             Assert.AreEqual(1, _calculator.Multiplier);
         }
 
         [Test]
         public void ApplyCombo_Limite_MaxMult() {
-            _calculator.ApplyCombo(99);
+            _calculator.IncreaseCombo(99);
             Assert.AreEqual(_calculator.MaxMult, _calculator.Multiplier);
         }
 
