@@ -165,18 +165,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0490649dcbf7083469c35916282e30c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7658342759946036222, guid: 799e483bb8edf5b489114e7ee2331208, type: 3}
-  firePoint: {fileID: 415140190248338186}
-  flexibility: 15
   normalForm:
     turretSprite: {fileID: 21300000, guid: 44edfe6339eaf4d4f9f435d98d1935d8, type: 3}
-    bulletPrefab: {fileID: 7658342759946036222, guid: 799e483bb8edf5b489114e7ee2331208, type: 3}
+    bulletPrefab: {fileID: 5625429236745168304, guid: 799e483bb8edf5b489114e7ee2331208, type: 3}
     flex: 15
+    regen: 33
   superForm:
     turretSprite: {fileID: 21300000, guid: 8531065703117c54abe0fb0ed8325125, type: 3}
-    bulletPrefab: {fileID: 5580122636409634178, guid: 09d243fb27e6f0545b94ec360342824b, type: 3}
+    bulletPrefab: {fileID: 7577024644700552140, guid: 09d243fb27e6f0545b94ec360342824b, type: 3}
     flex: 5
+    regen: 50
   turretRenderer: {fileID: 2487654179950600627}
+  firePoint: {fileID: 415140190248338186}
 --- !u!114 &7428783541391888488
 MonoBehaviour:
   m_ObjectHideFlags: 0

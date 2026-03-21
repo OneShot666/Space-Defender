@@ -7,29 +7,30 @@ namespace Gameplay {
     [System.Serializable]
     public struct PlayerForm {
         public Sprite turretSprite;
-        public GameObject bulletPrefab;
-        public float flex;
+        public BulletController bulletPrefab;
+        [Range(0, 180)] public float flex;
+        [Range(0, 100)] public float regen;
     }
-    
+
     [DefaultExecutionOrder(-100)]                                               // Initiate first
     public class PlayerController : MonoBehaviour {
-        [Header("Shoot settings")]
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private Transform firePoint;
-        [SerializeField, Range(0, 180)] private float flexibility = 15;
-
         [Header("Forms Configuration")]
         [SerializeField] private PlayerForm normalForm;
         [SerializeField] private PlayerForm superForm;
 
         [Header("References")]
         [SerializeField] private SpriteRenderer turretRenderer;
+        [SerializeField] private Transform firePoint;
 
         private Player _logic;
         private Camera _camera;
+        private BulletController _bulletPrefab;
         private bool _isSuperForm;
+        private float _flexibility;
+        private float _regen;
 
         public Player Player => _logic;
+        public float Regen => _regen;
 
         public static PlayerController Instance { get; private set; }
 
@@ -43,6 +44,7 @@ namespace Gameplay {
         private void Start() {
             _camera = Camera.main;
             if (!firePoint) firePoint = transform.GetChild(0);
+            ApplyForm(normalForm);
         }
 
         void Update() {
@@ -66,8 +68,9 @@ namespace Gameplay {
         
         private void ApplyForm(PlayerForm form) {
             turretRenderer.sprite = form.turretSprite;
-            bulletPrefab = form.bulletPrefab;
-            flexibility = form.flex;
+            _bulletPrefab = form.bulletPrefab;
+            _flexibility = form.flex;
+            _regen = form.regen;
         }
 
         private void HandleRotation() {
@@ -91,7 +94,7 @@ namespace Gameplay {
             Vector2 direction = target - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            if (angle >= flexibility && angle <= 180 - flexibility) 
+            if (angle >= _flexibility && angle <= 180 - _flexibility) 
                 transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         }
 
@@ -100,8 +103,12 @@ namespace Gameplay {
         }
 
         private void Shoot() {
-            if (!bulletPrefab || !firePoint) return;
-            Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+            if (!_bulletPrefab || !firePoint) return;
+            if (!_logic.CanShoot(_bulletPrefab.Cost)) return;
+
+            Instantiate(_bulletPrefab, firePoint.position, transform.rotation);
+            _logic.Consume(_bulletPrefab.Cost);
+
             if (_isSuperForm) AudioManager.Instance.PlayRandomBigShoot();
             else AudioManager.Instance.PlayRandomShoot();
         }

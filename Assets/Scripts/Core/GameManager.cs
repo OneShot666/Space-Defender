@@ -21,6 +21,7 @@ using UnityEngine;
 namespace Core {
     public class GameManager {
         public bool IsGameOver;
+        public bool IsPaused;
 
         public void TriggerGameOver() {
             IsGameOver = true;

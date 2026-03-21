@@ -224,3 +224,4 @@ MonoBehaviour:
   speed: 10
   lifeTime: 5
   damage: 1
+  cost: 10

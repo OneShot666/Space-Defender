@@ -19,7 +19,7 @@ public class HitFlash : MonoBehaviour {
     }
 
     private IEnumerator FlashRoutine() {
-        spriteRenderer.color = Color.red;                                     // Flash image
+        spriteRenderer.color = Color.red;                                     // Flash image -> show damage
         yield return new WaitForSeconds(flashDuration);
 
         spriteRenderer.color = _originalColor;                                  // Redraw image as default after short time

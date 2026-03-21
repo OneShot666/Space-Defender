@@ -6,8 +6,13 @@ namespace Core {
         public int MaxHealth = 100;
         public int Lives  { get; private set; } = 3;
         private int _maxLives = 3;
+        public float Energy = 100;
+        private readonly int _maxEnergy = 100;
         public int Score  { get; private set; }
         public bool IsAlive => Health > 0 && Lives > 0;
+        public int MaxEnergy => _maxEnergy;
+
+        public bool CanShoot(int cost) => Energy >= cost;
 
         public void SetMaxHealth(int amount) {
             Health = amount;
@@ -28,6 +33,14 @@ namespace Core {
             if (IsAlive) Health += Mathf.Min(amount, MaxHealth - Health);
         }
 
+        public void Regenerate(float regen, float deltaTime) {
+            if (IsAlive) Energy = Mathf.Min(MaxEnergy, Energy + regen * deltaTime);
+        }
+
+        public void Consume(int amount) {
+            if (IsAlive) Energy = Mathf.Max(0, Energy - amount);
+        }
+
         public void AddScore(int points) {
             if (points > 0) Score += points;
         }
@@ -39,6 +52,7 @@ namespace Core {
         public void Reset() {
             Health = MaxHealth;
             Lives = _maxLives;
+            Energy = _maxEnergy;
             Score = 0;
         }
     }

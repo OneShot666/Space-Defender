@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using UnityEngine.InputSystem;
+using UnityEngine;
 using Core;
 
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
 namespace Gameplay {
     public class GameController : MonoBehaviour {
         [SerializeField] private GameObject[] hearts;
-        [SerializeField] private GameObject deathScreenPanel;
+        [SerializeField] private GameObject pauseScreen;
+        [SerializeField] private GameObject deathScreen;
+        [SerializeField] private GameObject mainScreen;
 
         private GameManager _logic;
 
@@ -17,7 +20,19 @@ namespace Gameplay {
 
             _logic = new GameManager();
             PlayerController.Instance.Player.SetMaxLives(hearts.Length);
-            deathScreenPanel.SetActive(false);
+        }
+
+        private void Start() {
+            GoToMainMenu();
+        }
+
+        private void Update() {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame) {
+                if (mainScreen.activeSelf) QuitGame();
+                else GoToMainMenu();
+            }
+
+            if (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame) TogglePause();
         }
 
         public void LoseLife() {
@@ -36,22 +51,31 @@ namespace Gameplay {
             }
         }
 
-        private void GameOver() {                                               // L Show death screen
-            _logic.TriggerGameOver();
-            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameOverMusic);
-            ScoreController.Instance.Save();
-            deathScreenPanel.SetActive(true);
+        public void GoToMainMenu() {
+            pauseScreen.SetActive(false);
+            deathScreen.SetActive(false);
+            mainScreen.SetActive(true);
+            Time.timeScale = 0;
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
+        }
+
+        private void TogglePause() {
+            _logic.IsPaused = !_logic.IsPaused;
+            Time.timeScale = _logic.IsPaused ? 0 : 1;
+            pauseScreen.SetActive(_logic.IsPaused);
         }
 
         public void Restart() {
+            if (_logic.IsGameOver) AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
             _logic.IsGameOver = false;
             PlayerController.Instance.Player.Reset();
             EnemySpawner.Instance.Reset();
             ScoreController.Instance.Reset();
             CleanScene();
             ShowAllLives();
-            deathScreenPanel.SetActive(false);
-            AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
+            pauseScreen.SetActive(false);
+            deathScreen.SetActive(false);
+            mainScreen.SetActive(false);
             Time.timeScale = 1;
         }
 
@@ -70,7 +94,19 @@ namespace Gameplay {
                 else heart.SetActive(true);                                     // Back up
             }
         }
-        
+
+        private void GameOver() {
+            _logic.TriggerGameOver();
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameOverMusic);
+            ScoreController.Instance.Save();
+            deathScreen.SetActive(true);
+        }
+
+        public void QuitGame() {
+            ScoreController.Instance.Save();
+            Application.Quit();
+        }
+
         private void OnDestroy() {
             if (Instance == this) Instance = null;
         }
