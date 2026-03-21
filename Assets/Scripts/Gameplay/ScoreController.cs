@@ -16,6 +16,7 @@ namespace Gameplay {
         [SerializeField] private Text scoreText;
         [SerializeField] private Text highScoreText;
         [SerializeField] private Text killText;
+        [SerializeField] private Text multText;
         [SerializeField] private Text comboText;
 
         private const string HighScoreKey = "HighScore";
@@ -70,18 +71,22 @@ namespace Gameplay {
                 killText.text = $"K I L L S  :  {_killCount}";
             }
 
-            if (comboText) {
+            if (multText) {
                 float currentMult = _calculator.Multiplier;
 
                 if (currentMult <= _calculator.MinMult + 0.05f) {               // If too close to min
-                    comboText.enabled = false;
+                    multText.enabled = false;
+                    if (comboText) comboText.enabled = false;
                 } else {
-                    comboText.enabled = true;
-                    comboText.text = $"x{currentMult:F1}";
-            
+                    multText.enabled = true;
+                    multText.text = $"x{currentMult:F1}";
+                    if (comboText) comboText.enabled = true;
+
                     float t = (currentMult - _calculator.MinMult) / (_calculator.MaxMult - _calculator.MinMult); 
-                    comboText.color = Color.Lerp(minComboColor, maxComboColor, t);
-                    comboText.transform.localScale = Vector3.one * (1f + t * 0.5f); // Text shaking
+                    Color color = Color.Lerp(minComboColor, maxComboColor, t);
+                    multText.color = color;
+                    multText.transform.localScale = Vector3.one * (1f + t * 0.5f); // Text change size based on value
+                    if (comboText) comboText.color = color;
                 }
             }
         }

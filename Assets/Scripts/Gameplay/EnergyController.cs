@@ -5,11 +5,14 @@ using UnityEngine;
 namespace Gameplay {
     public class EnergyController : MonoBehaviour {
         [SerializeField] private Slider energySlider;
+        [SerializeField] private Image energyFill;
+        [SerializeField] private Color minColor = Color.yellow;
+        [SerializeField] private Color maxColor = Color.orange;
 
         void Start() {
             if (energySlider) {
                 energySlider.maxValue = GetPlayerMaxEnergy();
-                energySlider.value = GetPlayerEnergy();
+                UpdateEnergy();
             }
         }
 
@@ -29,10 +32,12 @@ namespace Gameplay {
             return PlayerController.Instance.Regen;
         }
 
-        public void UpdateEnergy() {
+        private void UpdateEnergy() {
             if (energySlider) {
                 PlayerController.Instance.Player.Regenerate(GetPlayerRegen(), Time.deltaTime);
                 energySlider.value = GetPlayerEnergy();
+                float percent = energySlider.value / energySlider.maxValue;
+                if (energyFill) energyFill.color = Color.Lerp(minColor, maxColor, percent);
             }
         }
     }
