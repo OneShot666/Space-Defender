@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7954637394367984830}
   - component: {fileID: 2319859332422723897}
+  - component: {fileID: 7428783541391888488}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -176,3 +177,17 @@ MonoBehaviour:
     bulletPrefab: {fileID: 5580122636409634178, guid: 09d243fb27e6f0545b94ec360342824b, type: 3}
     flex: 5
   turretRenderer: {fileID: 2487654179950600627}
+--- !u!114 &7428783541391888488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469658289854957875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7403535fbc293b4799df7dd367f7db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2487654179950600627}
+  flashDuration: 0.5

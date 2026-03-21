@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core;
+// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 
 namespace  Gameplay {
     public class EnemyController : MonoBehaviour {
@@ -50,7 +51,7 @@ namespace  Gameplay {
         }
 
         private void Move() {
-            transform.Translate(Vector3.down * _logic.Speed * Time.deltaTime);
+            transform.Translate(Vector3.down * (_logic.Speed * Time.deltaTime));
         }
 
         private void CheckAttack() {
@@ -62,9 +63,11 @@ namespace  Gameplay {
 
         public void OnHit(int damage) {
             _logic.TakeDamage(damage);
+            GetComponent<HitFlash>()?.Flash();
 
             if (!_logic.IsAlive) {
                 ScoreController.Instance.AddKill(_logic.GetReward());
+                AudioManager.Instance.PlayExplosion();
                 Destroy(gameObject);
             }
         }

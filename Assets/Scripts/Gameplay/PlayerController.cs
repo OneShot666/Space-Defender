@@ -55,11 +55,12 @@ namespace Gameplay {
             float currentMult = ScoreController.Instance.GetMultiplier();
 
             if (!_isSuperForm && currentMult >= ScoreController.Instance.GetMaxMult() - 1) {
-                ApplyForm(superForm);
                 _isSuperForm = true;
+                ApplyForm(superForm);
+                AudioManager.Instance.PlaySuperForm();
             } else if (_isSuperForm && currentMult <= ScoreController.Instance.GetMinMult() + 1) {
-                ApplyForm(normalForm);
                 _isSuperForm = false;
+                ApplyForm(normalForm);
             }
         }
         
@@ -101,10 +102,13 @@ namespace Gameplay {
         private void Shoot() {
             if (!bulletPrefab || !firePoint) return;
             Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+            if (_isSuperForm) AudioManager.Instance.PlayRandomBigShoot();
+            else AudioManager.Instance.PlayRandomShoot();
         }
 
         public void OnHit(int dmg) {
             _logic.TakeDamage(dmg);
+            GetComponent<HitFlash>()?.Flash();
         }
         
         private void OnDestroy() {

@@ -96,8 +96,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6498823637649199303}
-  - component: {fileID: 2872586722592318533}
   - component: {fileID: 5531123360531459643}
+  - component: {fileID: 2872586722592318533}
+  - component: {fileID: 7179711255563665934}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -121,24 +122,6 @@ Transform:
   - {fileID: 3388428238662975711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2872586722592318533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6480306214782059573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5f8ccba4e52154e8004894ad8aea5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRandom: 1
-  type: 0
-  spriteRenderer: {fileID: 5161292262918858911}
-  basicSprite: {fileID: 210711545961522245, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
-  fastSprite: {fileID: -52719971366531305, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
-  tankSprite: {fileID: -6882246161076783789, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
 --- !u!58 &5531123360531459643
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -175,3 +158,35 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.7
+--- !u!114 &2872586722592318533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6480306214782059573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5f8ccba4e52154e8004894ad8aea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRandom: 1
+  type: 0
+  spriteRenderer: {fileID: 5161292262918858911}
+  basicSprite: {fileID: 210711545961522245, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
+  fastSprite: {fileID: -52719971366531305, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
+  tankSprite: {fileID: -6882246161076783789, guid: 161b485322acc5f4d86b76e1b67232b6, type: 3}
+--- !u!114 &7179711255563665934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6480306214782059573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7403535fbc293b4799df7dd367f7db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5161292262918858911}
+  flashDuration: 0.1

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Core;
 
+// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 namespace Gameplay {
     public class GameController : MonoBehaviour {
         [SerializeField] private GameObject[] hearts;
@@ -23,7 +24,9 @@ namespace Gameplay {
             int currentLives = PlayerController.Instance.Player.Lives;
             if (currentLives > 0) {
                 PlayerController.Instance.Player.LoseLife();
+                PlayerController.Instance.GetComponent<HitFlash>()?.Flash();
                 currentLives = PlayerController.Instance.Player.Lives;
+                AudioManager.Instance.PlayLoseLife();
 
                 CanvasGroup cg = hearts[currentLives].GetComponent<CanvasGroup>();
                 if (cg) cg.alpha = 0;                                           // Hide life
@@ -35,6 +38,7 @@ namespace Gameplay {
 
         private void GameOver() {                                               // L Show death screen
             _logic.TriggerGameOver();
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameOverMusic);
             ScoreController.Instance.Save();
             deathScreenPanel.SetActive(true);
         }
@@ -47,6 +51,7 @@ namespace Gameplay {
             CleanScene();
             ShowAllLives();
             deathScreenPanel.SetActive(false);
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
             Time.timeScale = 1;
         }
 
