@@ -76,7 +76,7 @@ jobs:
         with:
           targetPlatform: WebGL
           buildName: SpaceDefender
-          compressionMethod: NoCompression
+          customParameters: -publishBuild -playerSetting "WebGLBinaries.compressionFormat=None"		# Force command settings override
 
       - name: Upload Build
         uses: actions/upload-artifact@v4 
@@ -90,6 +90,7 @@ jobs:
         with:
           folder: build/WebGL/SpaceDefender 	# Generate folder by unity-builder
           branch: gh-pages 		# Create branch if doesn't exists
+          clean: true
 
   build_windows:
     name: Build Windows
