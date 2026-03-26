@@ -75,7 +75,8 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }} 
         with:
           targetPlatform: WebGL
-          buildName: SpaceDefender 
+          buildName: SpaceDefender
+          compressionMethod: NoCompression
 
       - name: Upload Build
         uses: actions/upload-artifact@v4 
