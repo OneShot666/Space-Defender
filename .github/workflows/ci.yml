@@ -79,9 +79,11 @@ jobs:
 
       - name: Post-build Cleanup (Force No Compression)
         run: |
-          echo "Suppression des fichiers compressés .br résiduels..."
-          find build/WebGL/SpaceDefender -name "*.br" -type f -delete
-          find build/WebGL/SpaceDefender -name "*.gz" -type f -delete
+          echo "Récupération des droits sur le dossier de build..."
+          sudo chown -R $USER:$USER build/WebGL/SpaceDefender
+          echo "Suppression des fichiers compressés .br et .gz..."
+          sudo find build/WebGL/SpaceDefender -name "*.br" -type f -delete
+          sudo find build/WebGL/SpaceDefender -name "*.gz" -type f -delete
           echo "Nettoyage terminé."
 
       - name: Upload Build
