@@ -77,15 +77,6 @@ jobs:
           targetPlatform: WebGL
           buildName: SpaceDefender
 
-      - name: Post-build Cleanup (Force No Compression)
-        run: |
-          echo "Récupération des droits sur le dossier de build..."
-          sudo chown -R $USER:$USER build/WebGL/SpaceDefender
-          echo "Suppression des fichiers compressés .br et .gz..."
-          sudo find build/WebGL/SpaceDefender -name "*.br" -type f -delete
-          sudo find build/WebGL/SpaceDefender -name "*.gz" -type f -delete
-          echo "Nettoyage terminé."
-
       - name: Upload Build
         uses: actions/upload-artifact@v4 
         with:
@@ -99,7 +90,6 @@ jobs:
           folder: build/WebGL/SpaceDefender 	# Generate folder by unity-builder
           branch: gh-pages 		# Create branch if doesn't exists
           clean: true
-          force: true
 
   build_windows:
     name: Build Windows
