@@ -84,6 +84,7 @@ Clic Gauche : Tirer.
 ### 📂 Structure du projet
 
 Assets/
+
  ├── Animations/    # Animations (bullets)
  ├── Font/          # Polices utilisées
  ├── Images/        # Sprites et Textures (Pixel Art)
