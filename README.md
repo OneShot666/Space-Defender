@@ -84,14 +84,25 @@ Clic Gauche : Tirer.
 ### 📂 Structure du projet
 
 Assets/
+ 
  ├── Animations/    # Animations (bullets)
+
  ├── Font/          # Polices utilisées
+ 
  ├── Images/        # Sprites et Textures (Pixel Art)
+ 
  ├── Prefabs/       # Schema dans la scène
+ 
  ├── Scenes/        # Scène de jeu principale
+ 
  ├── Scripts/
+ 
  │    ├── Core/     # Logique C# Pure (Testable)
+ 
  │    └── Gameplay/ # MonoBehaviour & Unity Logic
+ 
  ├── Sounds/        # SFX et Musiques
+ 
  ├── Tests/
+ 
  │    └── EditMode/ # NUnit Tests
